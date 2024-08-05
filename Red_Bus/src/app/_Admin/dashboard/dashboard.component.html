@@ -1,0 +1,69 @@
+<div class="flex h-screen">
+
+  <!-- Mobile menu button -->
+  <input type="checkbox" id="menu-toggle" class="hidden peer" />
+  <label for="menu-toggle" class="block md:hidden p-4 cursor-pointer fixed z-20 top-0 left-0 mt-16">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+    </svg>
+  </label>
+
+  <!-- Sidebar -->
+  <aside class="w-60 bg-white shadow-md fixed h-full transform -translate-x-full md:translate-x-0 peer-checked:translate-x-0 transition-transform duration-200 ease-in-out">
+    <div class="p-6">
+      <h1 class="text-2xl font-bold text-[#E45E69]">RedBus</h1>
+    </div>
+    <nav class="p-6">
+      <a routerLink="main-content" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-[#E45E69] hover:text-white">
+        <i class="fas fa-tachometer-alt w-8 h-8 inline-block mr-2"></i>Dashboard
+      </a>
+
+
+
+
+      <a routerLink="Add-bus" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-[#E45E69] hover:text-white">
+        <i class="fas fa-bus w-8 h-8 inline-block mr-2"></i>Add Bus
+      </a>
+
+
+
+      <a routerLink="Guest" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-[#E45E69] hover:text-white">
+        <i class="fas fa-bus-alt w-8 h-8 inline-block mr-2"></i>All Buses
+      </a>
+
+      <a routerLink="front-desk" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-[#E45E69] hover:text-white">
+        <i class="fas fa-tags w-8 h-8 inline-block mr-2"></i>Add Offer
+      </a>
+
+
+      <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-[#E45E69] hover:text-white hover:cursor-pointer">
+        <i class="fas fa-sign-out-alt w-8 h-8 inline-block mr-2"></i>Log Out
+      </a>
+
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col ml-0 md:ml-60">
+    <!-- Upper Side Navbar -->
+    <nav class="bg-white shadow-md p-4">
+      <div class="flex justify-between items-center mb-2">
+        <input type="text" placeholder="Search Buses" class="w-full max-w-xs px-4 py-2 rounded-md border">
+        <div class="flex items-center space-x-4">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a7.003 7.003 0 00-5-6.709V4a2 2 0 10-4 0v.291A7.003 7.003 0 004 11v3.159c0 .538-.214 1.055-.595 1.436L2 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+          </svg>
+          <img src="https://via.placeholder.com/40" alt="Profile Picture" class="w-10 h-10 rounded-full">
+        </div>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-gray-600 mx-auto">{{ currentDate | date: 'fullDate' }}</span>
+
+
+      </div>
+    </nav>
+    <div class="overflow-y-auto p-2 mt-0">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.tab {
+  cursor: pointer;
+}
+
+.tab-content {
+  padding: 10px;
+  border-top: 1px solid #eaeaea;
+}
+

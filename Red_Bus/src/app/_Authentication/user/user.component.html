@@ -1,0 +1,68 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-50">
+  <div class="flex flex-col md:flex-row bg-white rounded-lg shadow-lg w-full max-w-4xl">
+    <!-- Left Section with Background Image -->
+    <div class="w-full md:w-1/2 p-8 bg-red-500 text-white rounded-t-lg md:rounded-l-lg md:rounded-t-none relative">
+      <img src="/assets/login.svg" alt="Background" class="absolute inset-0 h-full w-full object-cover opacity-25">
+      <div class="relative z-10">
+        <h2 class="text-3xl font-bold mb-4">Unlock the Smarter Way to Travel</h2>
+        <div class="flex items-center mb-4">
+          <span class="mr-2">💸</span>
+          <span>Exciting discounts and cashbacks!</span>
+        </div>
+        <div class="flex items-center">
+          <span class="mr-2">🎫</span>
+          <span>Book your tickets now!</span>
+        </div>
+      </div>
+    </div>
+    <!-- Right Section -->
+    <div class="w-full md:w-1/2 p-8">
+      <h2 class="text-2xl font-bold mb-6">{{ isSignup ? 'Sign Up' : 'Login' }} Bus Operator!!!</h2>
+      <form [formGroup]="loginForm">
+        <div class="mb-4" *ngIf="isSignup">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+            Email
+          </label>
+          <input formControlName="email" class="appearance-none border border-gray-300 p-2 rounded-lg text-gray-700 leading-tight focus:outline-none focus:ring w-full" id="email" type="email" placeholder="Enter your email">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="contact">
+            Mobile Number <span *ngIf="!isSignup"> or Email</span>
+          </label>
+          <div class="flex">
+            <input
+              id="contact"
+              class="flex-1 appearance-none border border-gray-300 p-2 rounded-r-lg text-gray-700 leading-tight focus:outline-none focus:ring"
+              type="text"
+              placeholder="Enter your mobile number or email"
+              (input)="onInputChange($event)"
+            >
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+            Password
+          </label>
+          <input formControlName="password" class="appearance-none border border-gray-300 p-2 rounded-lg text-gray-700 leading-tight focus:outline-none focus:ring w-full" id="password" type="password" placeholder="Enter your password">
+        </div>
+        <div class="text-center text-gray-500 mb-4">
+          OR, Connect using social accounts
+        </div>
+        <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+          <button class="w-full md:w-1/2 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring flex items-center justify-center" type="button" (click)="onLogin()">
+            Login
+          </button>
+          <button class="w-full md:w-1/2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring flex items-center justify-center" type="button" (click)="onSignup()">
+            Sign Up
+          </button>
+        </div>
+        <p class="text-center text-gray-400 text-sm mt-4">
+          By signing up, you agree to our
+          <a href="#" class="text-blue-500">Terms & Conditions</a>
+          and
+          <a href="#" class="text-blue-500">Privacy Policy</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>

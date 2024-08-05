@@ -1,0 +1,36 @@
+/* Add padding and increase the height of input fields */
+input[type="text"], input[type="date"], input[type="file"], input[type="number"] {
+  height: 2.5rem; /* Increase height as needed */
+  padding: 0.5rem; /* Add padding inside the input */
+  margin-top: 0.5rem; /* Add margin above the input */
+  margin-bottom: 0.5rem; /* Add margin below the input */
+  border-radius: 0.375rem; /* Optional: rounded corners */
+  border: 1px solid #d1d5db; /* Optional: border color */
+}
+
+/* Add margin to the labels for better spacing */
+label {
+  margin-bottom: 0.25rem; /* Add space below the label */
+}
+/* Ensure flex items align properly */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.space-x-4 > * + * {
+  margin-left: 1rem; /* Adjust space between input and select */
+}
+
+input[type="text"] {
+  height: 2.5rem; /* Ensure input height */
+  padding: 0.5rem; /* Add padding inside the input */
+}
+
+select {
+  height: 2.5rem; /* Ensure select height matches input */
+  padding: 0.5rem; /* Add padding inside the select */
+}

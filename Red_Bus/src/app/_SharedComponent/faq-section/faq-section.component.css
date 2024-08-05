@@ -1,0 +1,45 @@
+.faqAns a{
+  color: #0000A8;
+}
+.faqHeadSection{
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  color: #1D1D1D;
+  overflow: scroll hidden;
+  white-space: nowrap;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+.faqHeadSection::-webkit-scrollbar {
+  display: none;
+}
+
+.faqHeadText{
+  font-size: 1rem;
+  line-height: 1.5rem;
+  margin: .75rem 0.5rem;
+}
+
+.faqBotomBorder{
+   border-bottom: 3px solid transparent;
+   border-radius: 3px 3px 0px 0px;
+}
+
+.Active .faqHeadText{
+  color: #D84E55;
+}
+
+.Active .faqBotomBorder{
+  border-bottom: 3px solid #D84E55;
+  border-radius: 3px 3px 0px 0px;
+}
+.faqHeadTiles:hover  .faqBotomBorder{
+  border-bottom: 3px solid #D1D1D1;
+  border-radius: 3px 3px 0px 0px;
+}
+
+.Active:hover  .faqBotomBorder{
+  border-bottom: 3px solid #D84E55;
+  border-radius: 3px 3px 0px 0px;
+}

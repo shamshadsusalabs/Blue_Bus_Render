@@ -1,0 +1,158 @@
+<div class="border rounded-lg p-4 mb-4 shadow-lg bg-white" *ngFor="let data of searchResults">
+  <!-- Card Header -->
+  <div class="flex justify-between items-center mb-2">
+    <div>
+      <div class="text-lg font-semibold">{{data.busName}}</div>
+      <div class="text-gray-600">{{data.busType }} Seater (2+2)</div>
+      <div class="flex items-center space-x-2 mt-2">
+        <div class="flex space-x-1 text-gray-600">
+          <span><i class="fas fa-chair"></i></span>
+          <span><i class="fas fa-briefcase-medical"></i></span>
+          <span><i class="fas fa-glass-whiskey"></i></span>
+          <span><i class="fas fa-hamburger"></i></span>
+          <span>+5</span>
+        </div>
+        <button class="bg-gray-100 text-gray-600 px-2 py-1 rounded-lg">Live Tracking</button>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="text-2xl font-bold">INR {{data.fare}}</div>
+      <div class="text-gray-600">11 Seats available, 5 Window</div>
+    </div>
+  </div>
+
+  <!-- Card Content -->
+  <div class="flex justify-between items-center mb-2">
+    <div>
+      <div class="text-3xl font-bold">{{data.pickUpTime }}<span>{{data.pickUpAmPm}}</span></div>
+      <div class="text-gray-600">{{data.pickUpLocation}}</div>
+    </div>
+    <div>
+      <div class="text-lg text-gray-600">{{data.duration}}</div>
+    </div>
+    <div class="text-right">
+      <div class="text-3xl font-bold">{{data.dropTime}}<span>{{data.dropAmPm}}</span></div>
+      <div class="text-gray-600">{{data.dropLocation}}</div>
+    </div>
+    <div class="text-right">
+      <div class="bg-green-100 text-green-700 px-2 py-1 rounded-lg">⭐ 3.8</div>
+      <div class="text-gray-600">👥 {{data.totalSeats}}</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex justify-between items-center border-t pt-2 mt-2">
+    <div class="text-gray-600">
+      <span class="px-2 tab hover:cursor-pointer" (click)="setActiveTab(data._id, 'amenities')">Amenities</span> |
+      <span class="px-2 tab hover:cursor-pointer" (click)="setActiveTab(data._id, 'busPhotos')">Bus Photos</span> |
+      <span class="px-2 tab hover:cursor-pointer" (click)="setActiveTab(data._id, 'boardingPoints')">Boarding & Dropping Points</span> |
+      <span class="px-2 tab hover:cursor-pointer" (click)="setActiveTab(data._id, 'reviews')">Reviews</span> |
+      <span class="px-2 tab hover:cursor-pointer" (click)="setActiveTab(data._id, 'bookingPolicies')">Booking policies</span> |
+      <span class="px-2 tab hover:cursor-pointer" (click)="setActiveTab(data._id, 'busRoute')">Bus Route</span>
+    </div>
+    <button class="px-4 py-2 bg-red-500 text-white rounded-lg mb-2" (click)="toggleSeats(data._id)">VIEW SEATS</button>
+  </div>
+
+  <hr>
+
+  <!-- Tab Content -->
+  <div *ngIf="activeTabs[data._id] === 'amenities'" class="tab-content bg-gray-100 ">
+    <!-- Amenities Content -->
+    <div class="flex justify-between items-center mt-2">
+      <div><i class="fas fa-ticket-alt"></i> M-ticket Supported</div>
+      <div><i class="fas fa-charging-station"></i> Charging Point</div>
+      <div><i class="fas fa-phone-alt"></i> Emergency Contact Number</div>
+      <div><i class="fas fa-newspaper"></i> Magazine Pouch</div>
+      <div><i class="fas fa-mobile-alt"></i> M-ticket</div>
+    </div>
+  </div>
+ <!-- Bus Photos Tab Content -->
+
+<!-- Bus Photos Tab Content -->
+<div *ngFor="let data of searchResults">
+  <div *ngIf="activeTabs[data._id] === 'busPhotos'" class="tab-content">
+    <div class="grid grid-cols-3 gap-4">
+      <ng-container *ngFor="let image of data.busImages; let i = index">
+        <div class="relative bg-gray-100 p-4 rounded-lg mb-4">
+          <!-- Display Base64 Image -->
+          <img [src]="'data:image/png;base64,' + image.fileUrl" alt="Bus Photo" class="w-100 h-100 object-cover" />
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div *ngIf="activeTabs[data._id] === 'boardingPoints'" class="tab-content">
+    <!-- Boarding & Dropping Points Content -->
+  </div>
+  <div *ngIf="activeTabs[data._id] === 'reviews'" class="tab-content">
+    <!-- Reviews Content -->
+  </div>
+  <div *ngIf="activeTabs[data._id] === 'bookingPolicies'" class="tab-content">
+    <!-- Booking Policies Content -->
+  </div>
+  <div *ngIf="activeTabs[data._id] === 'busRoute'" class="tab-content">
+    <!-- Bus Route Content -->
+  </div>
+
+  <!-- Seat Structure in ViewDetailComponent template -->
+  <app-seat-booking-modal-component
+  [showModal]="showModal"
+  [busDetails]="selectedBusDetails"
+  [selectedSeat]="selectedSeat"
+  (close)="closeModal()"
+  (confirm)="confirmBooking($event)">
+</app-seat-booking-modal-component>
+
+<!-- Rest of your template -->
+
+<div class="container mx-auto pt-5 mb-5" *ngIf="openSeatViewId === data._id">
+  <div class="flex justify-center">
+    <div class="w-full max-w-4xl p-5 rounded-lg shadow-lg">
+      <div class="flex flex-col items-center mb-4">
+        <span class="text-sm text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">
+          Click on an Available seat to proceed with your transaction.
+        </span>
+      </div>
+      <div class="flex">
+        <div class="flex-1 relative">
+          <div class="absolute top-0 left-0 -mt-12 -mr-16">
+            <img src="/assets/handle.png" alt="Handle" class="w-10 h-10">
+          </div>
+          <ng-container *ngFor="let seatRow of getSeatRows(data.totalSeats)">
+            <div class="grid grid-cols-9 gap-2 mb-2" [class.grid-cols-8]="seatRow.length === 8">
+              <ng-container *ngFor="let seat of seatRow">
+                <a [id]="seat.id" [title]="seat.title" class="block" (click)="openModal(data, seat)">
+                  <img src="/assets/bseat.png" alt="" class="w-8 h-8">
+                </a>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+        <!-- Seat Legend -->
+        <div class="w-64 pl-8">
+          <div class="mb-4">
+            <h6 class="text-lg font-bold">SEAT LEGEND</h6>
+            <div class="flex items-center mb-2">
+              <span class="w-4 h-4 border border-gray-300 mr-2 inline-block"></span>
+              <span>Available</span>
+            </div>
+            <div class="flex items-center mb-2">
+              <span class="w-4 h-4 bg-gray-400 mr-2 inline-block"></span>
+              <span>Unavailable</span>
+            </div>
+          </div>
+          <div>
+            <h6 class="text-lg font-bold">THIS BOOKING IS NON-REFUNDABLE</h6>
+            <p class="text-sm text-gray-600">
+              This booking falls under the 100% cancellation charges window of the cancellation policy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
