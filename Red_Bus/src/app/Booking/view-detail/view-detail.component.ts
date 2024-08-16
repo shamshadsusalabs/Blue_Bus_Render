@@ -74,34 +74,56 @@ export class ViewDetailComponent {
   }
 
 
-
   setActiveTab(id: string, tab: string): void {
-    this.activeTabs[id] = tab;
+    // Check if the current tab is already active
+    if (this.activeTabs[id] === tab) {
+      // If the same tab is clicked again, close it by setting to an empty string
+      this.activeTabs[id] = ''; // or use a predefined constant like 'none'
+    } else {
+      // Otherwise, set the new active tab
+      this.activeTabs[id] = tab;
+    }
+
+    console.log(id);
+    console.log(tab);
   }
 
 
 
 
-  seatdetails:any;
 
 
 
 
-// Assuming you set the booked seats somehow, for example, after fetching seat details
+
+// Add this array to store seat details for each bus
+seatdetails: { [key: string]: any[] } = {};
+
 toggleSeats(_id: string): void {
   this.openSeatViewId = this.openSeatViewId === _id ? null : _id;
 
   console.log(_id);
 
-  this.bookingService.getSeatDetailsByBusId(_id).subscribe((data)=>{
-        this.seatdetails = data;
-        console.log(this.seatdetails);
-  },(error)=>{
-    console.log(error);
-
+  if (this.openSeatViewId) {
+    this.bookingService.getSeatDetailsByBusId(_id).subscribe((data) => {
+      this.seatdetails[_id] = data;
+      console.log(this.seatdetails[_id]);
+    }, (error) => {
+      console.log(error);
+    });
   }
-)
 }
+
+// Method to check if a seat is booked
+isSeatBooked(seatId: string): boolean {
+  if (this.openSeatViewId) {
+    return this.seatdetails[this.openSeatViewId]?.some((seat: { id: string }) => seat.id === seatId) || false;
+  }
+  return false;
+}
+
+
+
 
 showModal: boolean = false;
 selectedBusDetails: any;

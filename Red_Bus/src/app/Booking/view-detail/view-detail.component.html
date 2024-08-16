@@ -69,9 +69,9 @@
  <!-- Bus Photos Tab Content -->
 
 <!-- Bus Photos Tab Content -->
-<div *ngFor="let data of searchResults">
+<div>
   <div *ngIf="activeTabs[data._id] === 'busPhotos'" class="tab-content">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4"  *ngFor="let data of searchResults">
       <ng-container *ngFor="let image of data.busImages; let i = index">
         <div class="relative bg-gray-100 p-4 rounded-lg mb-4">
           <!-- Display Base64 Image -->
@@ -83,11 +83,50 @@
 </div>
 
 
+<div *ngIf="activeTabs[data._id] === 'boardingPoints'" class="tab-content bg-gray-100 p-4 rounded-lg">
+  <div class="flex flex-col gap-4">
+    <!-- Pick-Up Location Section -->
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <h3 class="font-bold text-lg">Pick-Up Location:</h3>
+      <div class="border-t border-gray-300 mt-2 pt-2">
+        <div class="font-semibold">Pick-Up Location:</div>
+        <div>{{ data.pickUpLocation }}</div>
+        <div>
+          {{ data.pickUpTime }} {{ data.pickUpAmPm }} - {{ data.pickUpDate | date: 'shortDate' }}
+        </div>
+      </div>
+    </div>
 
+    <!-- Sub Locations Section -->
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <h3 class="font-bold text-lg">Sub Locations:</h3>
+      <div class="grid grid-cols-1 gap-4 mt-2">
+        <div *ngFor="let subLocation of data.subLocations" class="border-t border-gray-300 pt-2">
+          <div class="font-semibold">Sub Location:</div>
+          <div>{{ subLocation.location }}</div>
+          <div>
+            {{ subLocation.time }} {{ subLocation.amPm }} - {{ subLocation.date | date: 'shortDate' }}
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div *ngIf="activeTabs[data._id] === 'boardingPoints'" class="tab-content">
-    <!-- Boarding & Dropping Points Content -->
+    <!-- Drop Point Section -->
+    <div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+      <h3 class="font-bold text-lg">Drop Point:</h3>
+      <div class="border-t border-gray-300 mt-2 pt-2">
+        <div class="font-semibold">Drop Location:</div>
+        <div>{{ data.dropLocation }}</div>
+        <div>
+          {{ data.dropTime }} {{ data.dropAmPm }} - {{ data.dropDate | date: 'shortDate' }}
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
   <div *ngIf="activeTabs[data._id] === 'reviews'" class="tab-content">
     <!-- Reviews Content -->
   </div>
@@ -125,8 +164,11 @@
           <ng-container *ngFor="let seatRow of getSeatRows(data.totalSeats)">
             <div class="grid grid-cols-9 gap-2 mb-2" [class.grid-cols-8]="seatRow.length === 8">
               <ng-container *ngFor="let seat of seatRow">
-                <a [id]="seat.id" [title]="seat.title" class="block" (click)="openModal(data, seat)">
+                <a [id]="seat.id" [title]="seat.title" class="block relative"
+                   [ngClass]="{'bg-red-500 w-8': isSeatBooked(seat.id)}"
+                   (click)="openModal(data, seat)">
                   <img src="/assets/bseat.png" alt="" class="w-8 h-8">
+                  <span *ngIf="isSeatBooked(seat.id)" class="absolute inset-0 flex items-center justify-center text-white text-sm opacity-0 hover:opacity-100">Booked</span>
                 </a>
               </ng-container>
             </div>
@@ -141,8 +183,8 @@
               <span>Available</span>
             </div>
             <div class="flex items-center mb-2">
-              <span class="w-4 h-4 bg-gray-400 mr-2 inline-block"></span>
-              <span>Unavailable</span>
+              <span class="w-4 h-4 bg-red-500 mr-2 inline-block"></span>
+              <span>Booked</span>
             </div>
           </div>
           <div>
