@@ -10,7 +10,7 @@ import { User } from '../Modal/User';
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:3000/api/V1/user'; // Update with your API URL
+  private apiUrl = 'https://blue-bus-render.onrender.com/api/V1/user'; // Update with your API URL
 
   constructor(private http: HttpClient) { }
 

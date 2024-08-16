@@ -6,7 +6,7 @@ import {Booking} from '../Modal/Booking'
   providedIn: 'root'
 })
 export class BookingService {
-  private apiUrl = 'http://localhost:3000/api/V1/Booking/bookings';
+  private apiUrl = 'https://blue-bus-render.onrender.com/api/V1/Booking/bookings';
 
   constructor(private http: HttpClient) {}
 

@@ -9,7 +9,7 @@ import { OperatorUser } from '../Modal/BusOperatorUser';
   providedIn: 'root'
 })
 export class BusOperatorUserService {
-  private apiUrl = 'http://localhost:3000/api/V1/OperatorUsers'; // Update with your API URL
+  private apiUrl = 'https://blue-bus-render.onrender.com/api/V1/OperatorUsers'; // Update with your API URL
 
   constructor(private http: HttpClient) { }
 

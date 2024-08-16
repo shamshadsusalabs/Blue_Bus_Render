@@ -8,7 +8,7 @@ import { Bus } from '../Modal/Bus';
   providedIn: 'root'
 })
 export class BusService {
-  private apiUrl = 'http://localhost:3000/api/V1/bus/buses';  // Adjust the API URL as needed
+  private apiUrl = 'https://blue-bus-render.onrender.com/api/V1/bus/buses';  // Adjust the API URL as needed
   private searchData = new BehaviorSubject<any>(this.loadSearchData());
   constructor(private http: HttpClient) {}
 
